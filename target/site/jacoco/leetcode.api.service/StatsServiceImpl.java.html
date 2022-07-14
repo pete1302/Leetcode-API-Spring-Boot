@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatsServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api</a> &gt; <a href="index.source.html" class="el_package">leetcode.api.service</a> &gt; <span class="el_source">StatsServiceImpl.java</span></div><h1>StatsServiceImpl.java</h1><pre class="source lang-java linenums">package leetcode.api.service;
+
+import leetcode.api.model.StatsResponse;
+import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.json.JSONException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import okhttp3.Request;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.MediaType;
+import okhttp3.Response;
+
+@Service
+<span class="fc" id="L22">public class StatsServiceImpl implements StatsService {</span>
+    @Override
+    public StatsResponse getStats(String username) {
+<span class="nc" id="L25">        OkHttpClient client = new OkHttpClient().newBuilder()</span>
+<span class="nc" id="L26">                .build();</span>
+<span class="nc" id="L27">        MediaType mediaType = MediaType.parse(&quot;application/json&quot;);</span>
+<span class="nc" id="L28">        String query = String.format(&quot;{\&quot;query\&quot;:\&quot;query getUserProfile($username: String!) { allQuestionsCount { difficulty count } matchedUser(username: $username) { contributions { points } profile { reputation ranking } submissionCalendar submitStats { acSubmissionNum { difficulty count submissions } totalSubmissionNum { difficulty count submissions } } } } \&quot;,\&quot;variables\&quot;:{\&quot;username\&quot;:\&quot;%s\&quot;}}&quot;, username);</span>
+<span class="nc" id="L29">        RequestBody body = RequestBody.create(mediaType, query);</span>
+<span class="nc" id="L30">        Request request = new Request.Builder()</span>
+<span class="nc" id="L31">                .url(&quot;https://leetcode.com/graphql/&quot;)</span>
+<span class="nc" id="L32">                .method(&quot;POST&quot;, body)</span>
+<span class="nc" id="L33">                .addHeader(&quot;referer&quot;, String.format(&quot;https://leetcode.com/%s/&quot;, username))</span>
+<span class="nc" id="L34">                .addHeader(&quot;Content-Type&quot;, &quot;application/json&quot;)</span>
+<span class="nc" id="L35">                .build();</span>
+
+        try {
+<span class="nc" id="L38">            Response response = client.newCall(request).execute();</span>
+
+            // Inspect response
+<span class="nc" id="L41">            String responseString = response.body().string();</span>
+<span class="nc" id="L42">            JSONObject jsonObject = new JSONObject(responseString);</span>
+
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (response.isSuccessful()) {</span>
+                // Parse GraphQL response
+
+                // User not found
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                if (jsonObject.has(&quot;errors&quot;)) {</span>
+<span class="nc" id="L49">                    return StatsResponse.error(&quot;error&quot;, &quot;user does not exist&quot;);</span>
+                } else { // Parse user info
+<span class="nc" id="L51">                    return decodeGraphqlJson(jsonObject);</span>
+                }
+            } else {
+<span class="nc" id="L54">                return StatsResponse.error(&quot;error&quot;, jsonObject.getString(&quot;error&quot;));</span>
+            }
+<span class="nc" id="L56">        } catch (IOException | JSONException ex) {</span>
+<span class="nc" id="L57">            return StatsResponse.error(&quot;error&quot;, ex.getMessage());</span>
+        }
+
+    }
+
+    private StatsResponse decodeGraphqlJson(JSONObject json) {
+<span class="nc" id="L63">        int totalSolved = 0;</span>
+<span class="nc" id="L64">        int totalQuestions = 0;</span>
+<span class="nc" id="L65">        int easySolved = 0;</span>
+<span class="nc" id="L66">        int totalEasy = 0;</span>
+<span class="nc" id="L67">        int mediumSolved = 0;</span>
+<span class="nc" id="L68">        int totalMedium = 0;</span>
+<span class="nc" id="L69">        int hardSolved = 0;</span>
+<span class="nc" id="L70">        int totalHard = 0;</span>
+<span class="nc" id="L71">        float acceptanceRate = 0;</span>
+<span class="nc" id="L72">        int ranking = 0;</span>
+<span class="nc" id="L73">        int contributionPoints = 0;</span>
+<span class="nc" id="L74">        int reputation = 0;</span>
+
+<span class="nc" id="L76">        final Map&lt;String, Integer&gt; submissionCalendar = new TreeMap&lt;&gt;();</span>
+
+        try {
+<span class="nc" id="L79">            JSONObject data = json.getJSONObject(&quot;data&quot;);</span>
+<span class="nc" id="L80">            JSONArray allQuestions = data.getJSONArray(&quot;allQuestionsCount&quot;);</span>
+<span class="nc" id="L81">            JSONObject matchedUser = data.getJSONObject(&quot;matchedUser&quot;);</span>
+<span class="nc" id="L82">            JSONObject submitStats = matchedUser.getJSONObject(&quot;submitStats&quot;);</span>
+<span class="nc" id="L83">            JSONArray actualSubmissions = submitStats.getJSONArray(&quot;acSubmissionNum&quot;);</span>
+<span class="nc" id="L84">            JSONArray totalSubmissions = submitStats.getJSONArray(&quot;totalSubmissionNum&quot;);</span>
+
+            // Fill in total counts
+<span class="nc" id="L87">            totalQuestions = allQuestions.getJSONObject(0).getInt(&quot;count&quot;);</span>
+<span class="nc" id="L88">            totalEasy = allQuestions.getJSONObject(1).getInt(&quot;count&quot;);</span>
+<span class="nc" id="L89">            totalMedium = allQuestions.getJSONObject(2).getInt(&quot;count&quot;);</span>
+<span class="nc" id="L90">            totalHard = allQuestions.getJSONObject(3).getInt(&quot;count&quot;);</span>
+
+            // Fill in solved counts
+<span class="nc" id="L93">            totalSolved = actualSubmissions.getJSONObject(0).getInt(&quot;count&quot;);</span>
+<span class="nc" id="L94">            easySolved = actualSubmissions.getJSONObject(1).getInt(&quot;count&quot;);</span>
+<span class="nc" id="L95">            mediumSolved = actualSubmissions.getJSONObject(2).getInt(&quot;count&quot;);</span>
+<span class="nc" id="L96">            hardSolved = actualSubmissions.getJSONObject(3).getInt(&quot;count&quot;);</span>
+
+            // Fill in etc
+<span class="nc" id="L99">            float totalAcceptCount = actualSubmissions.getJSONObject(0).getInt(&quot;submissions&quot;);</span>
+<span class="nc" id="L100">            float totalSubCount = totalSubmissions.getJSONObject(0).getInt(&quot;submissions&quot;);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            if (totalSubCount != 0) {</span>
+<span class="nc" id="L102">                acceptanceRate = round((totalAcceptCount / totalSubCount) * 100, 2);</span>
+            }
+
+<span class="nc" id="L105">            contributionPoints = matchedUser.getJSONObject(&quot;contributions&quot;).getInt(&quot;points&quot;);</span>
+<span class="nc" id="L106">            reputation = matchedUser.getJSONObject(&quot;profile&quot;).getInt(&quot;reputation&quot;);</span>
+<span class="nc" id="L107">            ranking = matchedUser.getJSONObject(&quot;profile&quot;).getInt(&quot;ranking&quot;);</span>
+
+<span class="nc" id="L109">            final JSONObject submissionCalendarJson = new JSONObject(matchedUser.getString(&quot;submissionCalendar&quot;));</span>
+
+<span class="nc bnc" id="L111" title="All 2 branches missed.">            for (String timeKey: submissionCalendarJson.keySet()) {</span>
+<span class="nc" id="L112">                submissionCalendar.put(timeKey, submissionCalendarJson.getInt(timeKey));</span>
+<span class="nc" id="L113">            }</span>
+
+<span class="nc" id="L115">        } catch (JSONException ex) {</span>
+<span class="nc" id="L116">            return StatsResponse.error(&quot;error&quot;, ex.getMessage());</span>
+<span class="nc" id="L117">        }</span>
+
+<span class="nc" id="L119">        return new StatsResponse(&quot;success&quot;, &quot;retrieved&quot;, totalSolved, totalQuestions, easySolved, totalEasy, mediumSolved, totalMedium, hardSolved, totalHard, acceptanceRate, ranking, contributionPoints, reputation, submissionCalendar);</span>
+    }
+
+    private float round(float d, int decimalPlace) {
+<span class="nc" id="L123">        BigDecimal bd = new BigDecimal(Float.toString(d));</span>
+<span class="nc" id="L124">        bd = bd.setScale(decimalPlace, RoundingMode.HALF_UP);</span>
+<span class="nc" id="L125">        return bd.floatValue();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
