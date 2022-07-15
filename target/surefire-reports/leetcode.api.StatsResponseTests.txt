@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: leetcode.api.StatsResponseTests
 -------------------------------------------------------------------------------
-Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s - in leetcode.api.StatsResponseTests
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s - in leetcode.api.StatsResponseTests
