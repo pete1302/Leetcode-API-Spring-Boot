@@ -69,7 +69,7 @@ public class UserController {
             return infoStr;
         }
     }
-    @GetMapping(value ={"/{username}/{params}", "/"})
+    @GetMapping(value ={"param/{username}/{params}", "/"})
     // @GetMapping(path ="/{username}/{params}")
     public String getstats_2s(@PathVariable(required = false) String username  ,@PathVariable(required = false) String params) {
 

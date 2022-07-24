@@ -1,16 +1,16 @@
 -------------------------------------------------------------------------------
 Test set: leetcode.api.UserControllerTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 0.456 s <<< FAILURE! - in leetcode.api.UserControllerTests
-validUsername  Time elapsed: 0.07 s  <<< FAILURE!
+Tests run: 3, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 0.43 s <<< FAILURE! - in leetcode.api.UserControllerTests
+validUsername  Time elapsed: 0.054 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at leetcode.api.UserControllerTests.validUsername(UserControllerTests.java:39)
 
-nonValidUsername  Time elapsed: 0.007 s  <<< FAILURE!
+nonValidUsername  Time elapsed: 0.01 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at leetcode.api.UserControllerTests.nonValidUsername(UserControllerTests.java:58)
 
-noUsername  Time elapsed: 0.006 s  <<< ERROR!
+noUsername  Time elapsed: 0.002 s  <<< ERROR!
 org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.IllegalStateException: Ambiguous handler methods mapped for '/': {public java.lang.String leetcode.api.controller.UserController.getStats(java.lang.String,java.lang.Integer), public java.lang.String leetcode.api.controller.UserController.getstats_2s(java.lang.String,java.lang.String)}
 	at leetcode.api.UserControllerTests.noUsername(UserControllerTests.java:47)
 Caused by: java.lang.IllegalStateException: Ambiguous handler methods mapped for '/': {public java.lang.String leetcode.api.controller.UserController.getStats(java.lang.String,java.lang.Integer), public java.lang.String leetcode.api.controller.UserController.getstats_2s(java.lang.String,java.lang.String)}
