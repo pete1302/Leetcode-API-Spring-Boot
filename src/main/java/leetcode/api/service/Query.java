@@ -2,15 +2,27 @@ package leetcode.api.service;
 
 public class Query {
     
-    public static String getQuery(int x, String username) {
+    public static String getQuery( String username , Integer id , String params) {
+
+        if( params == null ){
+            return getNumQuery(username, id);            
+        }
+        else{
+            
+            return "";
+        }
+
+    }  
+    // public
+    public static String getNumQuery(String username , Integer id ){
         
         String query = null;
-        switch (x) {
+        switch (id) {
+
             case 1:
                 query = String.format("{\"query\":\"query getUserProfile($username: String!) { allQuestionsCount { difficulty count } matchedUser(username: $username) { contributions { points } profile { reputation ranking } submissionCalendar submitStats { acSubmissionNum { difficulty count submissions } totalSubmissionNum { difficulty count submissions } } } } \",\"variables\":{\"username\":\"%s\"}}", username);
                 // return query1 ;
                 break;
-        
             case 2:
                 query = String.format("{\"query\":\"query getUserProfile($username: String!) {  matchedUser(username: $username) { contributions { points } profile { reputation ranking } } } \",\"variables\":{\"username\":\"%s\"}}", username);
                 // return query2 ;
@@ -28,6 +40,7 @@ public class Query {
         }
 
         return query;
+        // return  "";
     }
 
 }

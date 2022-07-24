@@ -15,13 +15,13 @@ import okhttp3.Response;
 @Service
 public class jsonService {
     
-    public static JSONObject getJSON(String username , int qid ) {
+    public static JSONObject getJSON(String username , Integer qid , String params) {
         
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
         // String query = String.format("{`\"query\":\"query getUserProfile($username: String!) { allQuestionsCount { difficulty count } matchedUser(username: $username) { contributions { points } profile { reputation ranking } submissionCalendar submitStats { acSubmissionNum { difficulty count submissions } totalSubmissionNum { difficulty count submissions } } } } \",\"variables\":{\"username\":\"%s\"}}", username);
-        String query = Query.getQuery(qid, username);
+        String query = Query.getQuery( username , qid , params);
 
         
         RequestBody body = RequestBody.create(mediaType, query);

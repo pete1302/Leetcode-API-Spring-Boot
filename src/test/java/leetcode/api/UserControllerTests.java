@@ -1,22 +1,24 @@
 package leetcode.api;
 
-import leetcode.api.controller.UserController;
-import leetcode.api.model.StatsResponse;
-import leetcode.api.service.StatsService;
-import leetcode.api.service.StatsServiceImpl;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.HashMap;
-import java.util.Map;
+import leetcode.api.controller.UserController;
+import leetcode.api.model.StatsResponse;
+import leetcode.api.service.StatsService;
+
 
 @WebMvcTest(UserController.class)
 public class UserControllerTests {

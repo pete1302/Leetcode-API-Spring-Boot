@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: leetcode.api.ApiApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.951 s - in leetcode.api.ApiApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.928 s - in leetcode.api.ApiApplicationTests
