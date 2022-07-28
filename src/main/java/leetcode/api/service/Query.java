@@ -31,6 +31,17 @@ public class Query {
                         username);
                 break;
 
+            case 5:
+            query = String.format(
+                    "{\"query\":\" query getUserProfile($username: String!) {  matchedUser(username: $username) {  profile { realName    ranking    } submitStats {acSubmissionNum {count  }  }    }   } \",\"variables\":{\"username\":\"%s\"}}",username);
+            break;
+
+            
+            case 6:
+            query = String.format(
+                    "{\"query\":\" query getUserProfile($username: String!) {  matchedUser(username: $username) {  profile { realName   }     }   } \",\"variables\":{\"username\":\"%s\"}}",username);
+            break;
+
             default:
                 break;
         }
