@@ -1,16 +1,16 @@
 -------------------------------------------------------------------------------
 Test set: leetcode.api.UserControllerTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.438 s <<< FAILURE! - in leetcode.api.UserControllerTests
-validUsername  Time elapsed: 0.052 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at leetcode.api.UserControllerTests.validUsername(UserControllerTests.java:37)
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.501 s <<< FAILURE! - in leetcode.api.UserControllerTests
+validUsername  Time elapsed: 0.072 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <redirect:/home> but was: <{"status":"success","message":"retrieved","totalSolved":1,"totalQuestions":2,"easySolved":3,"totalEasy":4,"mediumSolved":5,"totalMedium":6,"hardSolved":7,"totalHard":8,"acceptanceRate":99.99,"ranking":10,"contributionPoints":11,"reputation":12,"submissionCalendar":{"1610755200":2}}>
+	at leetcode.api.UserControllerTests.validUsername(UserControllerTests.java:40)
 
 nonValidUsername  Time elapsed: 0.008 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at leetcode.api.UserControllerTests.nonValidUsername(UserControllerTests.java:56)
+org.opentest4j.AssertionFailedError: expected: <redirect:/home> but was: <{"status":"error","message":"user does not exist","totalSolved":0,"totalQuestions":0,"easySolved":0,"totalEasy":0,"mediumSolved":0,"totalMedium":0,"hardSolved":0,"totalHard":0,"acceptanceRate":0.0,"ranking":0,"contributionPoints":0,"reputation":0,"submissionCalendar":{}}>
+	at leetcode.api.UserControllerTests.nonValidUsername(UserControllerTests.java:59)
 
-noUsername  Time elapsed: 0.026 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<500>
-	at leetcode.api.UserControllerTests.noUsername(UserControllerTests.java:45)
+noUsername  Time elapsed: 0.008 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <redirect:/home> but was: <{"status":"error","message":"please enter your username (ex: leetcode-stats-api.herokuapp.com/LeetCodeUsername)","totalSolved":0,"totalQuestions":0,"easySolved":0,"totalEasy":0,"mediumSolved":0,"totalMedium":0,"hardSolved":0,"totalHard":0,"acceptanceRate":0.0,"ranking":0,"contributionPoints":0,"reputation":0,"submissionCalendar":{}}>
+	at leetcode.api.UserControllerTests.noUsername(UserControllerTests.java:48)
 
