@@ -1,4 +1,5 @@
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\model\StatsResponse.java
+C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\service\jsonParse.java
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\service\Query.java
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\service\serviceInfo.java
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\ApiApplication.java
@@ -6,3 +7,4 @@ C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\l
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\service\StatsService.java
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\service\StatsServiceImpl.java
 C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\controller\UserController.java
+C:\Users\PETE\Desktop\archive\maven-workspace\leetcode-stats-api\src\main\java\leetcode\api\service\jsonWriter.java

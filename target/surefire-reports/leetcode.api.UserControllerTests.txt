@@ -1,18 +1,16 @@
 -------------------------------------------------------------------------------
 Test set: leetcode.api.UserControllerTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 0.43 s <<< FAILURE! - in leetcode.api.UserControllerTests
-validUsername  Time elapsed: 0.054 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at leetcode.api.UserControllerTests.validUsername(UserControllerTests.java:39)
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.466 s <<< FAILURE! - in leetcode.api.UserControllerTests
+validUsername  Time elapsed: 0.071 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <redirect:/home> but was: <{"status":"success","message":"retrieved","totalSolved":1,"totalQuestions":2,"easySolved":3,"totalEasy":4,"mediumSolved":5,"totalMedium":6,"hardSolved":7,"totalHard":8,"acceptanceRate":99.99,"ranking":10,"contributionPoints":11,"reputation":12,"submissionCalendar":{"1610755200":2}}>
+	at leetcode.api.UserControllerTests.validUsername(UserControllerTests.java:42)
 
-nonValidUsername  Time elapsed: 0.01 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<404>
-	at leetcode.api.UserControllerTests.nonValidUsername(UserControllerTests.java:58)
+nonValidUsername  Time elapsed: 0.011 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <redirect:/home> but was: <{"status":"error","message":"user does not exist","totalSolved":0,"totalQuestions":0,"easySolved":0,"totalEasy":0,"mediumSolved":0,"totalMedium":0,"hardSolved":0,"totalHard":0,"acceptanceRate":0.0,"ranking":0,"contributionPoints":0,"reputation":0,"submissionCalendar":{}}>
+	at leetcode.api.UserControllerTests.nonValidUsername(UserControllerTests.java:61)
 
-noUsername  Time elapsed: 0.002 s  <<< ERROR!
-org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.IllegalStateException: Ambiguous handler methods mapped for '/': {public java.lang.String leetcode.api.controller.UserController.getStats(java.lang.String,java.lang.Integer), public java.lang.String leetcode.api.controller.UserController.getstats_2s(java.lang.String,java.lang.String)}
-	at leetcode.api.UserControllerTests.noUsername(UserControllerTests.java:47)
-Caused by: java.lang.IllegalStateException: Ambiguous handler methods mapped for '/': {public java.lang.String leetcode.api.controller.UserController.getStats(java.lang.String,java.lang.Integer), public java.lang.String leetcode.api.controller.UserController.getstats_2s(java.lang.String,java.lang.String)}
-	at leetcode.api.UserControllerTests.noUsername(UserControllerTests.java:47)
+noUsername  Time elapsed: 0.01 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <redirect:/home> but was: <{"status":"error","message":"please enter your username (ex: leetcode-stats-api.herokuapp.com/LeetCodeUsername)","totalSolved":0,"totalQuestions":0,"easySolved":0,"totalEasy":0,"mediumSolved":0,"totalMedium":0,"hardSolved":0,"totalHard":0,"acceptanceRate":0.0,"ranking":0,"contributionPoints":0,"reputation":0,"submissionCalendar":{}}>
+	at leetcode.api.UserControllerTests.noUsername(UserControllerTests.java:50)
 

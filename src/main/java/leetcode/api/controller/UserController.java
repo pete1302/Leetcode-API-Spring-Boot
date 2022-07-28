@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import leetcode.api.service.jsonService;
+import leetcode.api.service.jsonWriter;
 import leetcode.api.service.serviceInfo;
 
 // impotr 
@@ -16,15 +17,22 @@ import leetcode.api.service.serviceInfo;
 public class UserController {
     // @Autowired
     // private StatsService statsService;
+    @GetMapping(value = { "/home" , "/" })
+    public String home(){
+        // JSONObject homeDesc = new JSONObject();
+        // serviceInfo.getServiceInfo();
+        return "home";
+    }
 
-    @GetMapping(value ={"/{username}/{qid}", "/"} )
+    @GetMapping(value ={"/api/user/{username}/{qid}", "/"} )
     // @GetMapping(path ="/{username}/{qid}" )
     // public ResponseEntity<JSONObject> getStats(@PathVariable Optional<String> username , @PathVariable long qid) {
     // public String getStats(@PathVariable Optional<String> username , @PathVariable int qid) {
-    public String getStats(@PathVariable(required = false) String username , @PathVariable(required = false) Integer qid ) {
+    public String getStats(@PathVariable(required = false) String username ,
+                         @PathVariable(required = false) Integer qid ) {
         // if (username != null && qid != null && params != null) {
             
-        //     System.out.println(username +' '+ qid + ' ' + params) ;
+        //     System.out.println(username +' '+ qid + ' ' + params) ;+
         //     // String datastr =  username + String.valueOf(qid);
     
         //     JSONObject data = new JSONObject();
@@ -60,6 +68,7 @@ public class UserController {
             System.out.println(data);
             JSONObject qdata  = new JSONObject();
             qdata = jsonService.getJSON(username , qid , null);
+            jsonWriter.writer(qdata);
             return qdata.toString();
             
         }
@@ -72,11 +81,14 @@ public class UserController {
     @GetMapping(value ={"param/{username}/{params}", "/"})
     // @GetMapping(path ="/{username}/{params}")
     public String getstats_2s(@PathVariable(required = false) String username  ,@PathVariable(required = false) String params) {
-
-
-
         return "in mapping 2";
     }
+    @GetMapping(value = { "**"  ,"/" })
+    public String wildCard(){
+        
+        return "redirect:/home";   // ret error json
+    }
+
 
 
 }

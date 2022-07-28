@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import leetcode.api.response.responseHandler;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,7 +16,8 @@ import okhttp3.Response;
 @Service
 public class jsonService {
     
-    public static JSONObject getJSON(String username , Integer qid , String params) {
+    // public static JSONObject getJSON(String username , Integer qid , String params) {
+    public static void getJSON(String username , Integer qid , String params) {
         
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -33,12 +35,19 @@ public class jsonService {
                 .addHeader("Content-Type", "application/json")
                 .build();
 
+//---------
+
         try {
             Response response = client.newCall(request).execute();
 
             // Inspect response
             String responseString = response.body().string();
+
+            responseHandler.scanResponse(responseString);
+            
+
             JSONObject jsonObject = new JSONObject(responseString);
+            // JSONObject nullResponse = new JSONObject();
 
             if (response.isSuccessful()) {
                 // Parse GraphQL response
@@ -47,24 +56,31 @@ public class jsonService {
                 if (jsonObject.has("errors")) {
                     System.out.println("yooohoooo 1");
                     JSONObject errmsg = null;
-                    // return StatsResponse.error("error", "user does not exist");
-                    return errmsg;
-                } else { // Parse user info
-                    System.out.println(jsonObject);
-                    return jsonObject;
+                    // return   .error("error", "user does not exist");
+                    // return errmsg;
+                }
+                // else if ( jsonObject == null){
+                //     nullResponse.put("error", "user dosen't exist");
 
+                //     return nullResponse;
+
+                // }
+                 else { // Parse user info
+                    System.out.println(jsonObject);
+                    // return jsonObject;
                     // return decodeGraphqlJson(jsonObject);
                 }
             } else {
                 System.out.println("yooohoooo 2");
                 JSONObject errmsg = null;
-                return errmsg;
+                // return errmsg;
             }
         } catch (IOException | JSONException ex) {
             System.out.println("yoohooo 3");
             // return StatsResponse.error("error", ex.getMessage());
-            JSONObject errmsg = null;
-            return errmsg;
+            // JSONObject errmsg = null;
+            responseHandler.responseError(ex.getMessage());
+            // return errmsg;
         }
         
     }
