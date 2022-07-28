@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import leetcode.api.response.responseHandler;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -16,6 +17,7 @@ import okhttp3.Response;
 public class jsonService {
     
     public static JSONObject getJSON(String username , int qid ) {
+    // public static void getJSON(String username , int qid ) {
         
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -33,39 +35,60 @@ public class jsonService {
                 .addHeader("Content-Type", "application/json")
                 .build();
 
+        // JSONObject responseBody = null;
+
         try {
             Response response = client.newCall(request).execute();
 
             // Inspect response
             String responseString = response.body().string();
-            JSONObject jsonObject = new JSONObject(responseString);
 
-            if (response.isSuccessful()) {
+            System.out.println("RESPONSE STRING _____" + responseString);
+            // JSONObject jsonObject = new JSONObject(responseString);
+            System.out.println("HTTPCODE _____------ " + response.code() );
+            // Integer httpCode = Integer.parseInt(response.message());
+            Integer httpCode = response.code();
+
+            if (response.isSuccessful()) {          //200ish code
+                System.out.println("___________SUCESSFUL_______");
                 // Parse GraphQL response
-
                 // User not found
-                if (jsonObject.has("errors")) {
-                    System.out.println("yooohoooo 1");
-                    JSONObject errmsg = null;
-                    // return StatsResponse.error("error", "user does not exist");
-                    return errmsg;
-                } else { // Parse user info
-                    System.out.println(jsonObject);
-                    return jsonObject;
+                return responseHandler.scanResponse(responseString, httpCode);
+                
 
-                    // return decodeGraphqlJson(jsonObject);
-                }
+                // if (jsonObject.has("errors")) {
+                //     System.out.println("yooohoooo 1");
+                //     JSONObject errmsg = null;
+                //     // return StatsResponse.error("error", "user does not exist");
+                //     // return errmsg;
+                // } else { // Parse user info
+                //     System.out.println(jsonObject);
+                //     // return jsonObject;
+
+                //     // return decodeGraphqlJson(jsonObject);
+                // }
             } else {
-                System.out.println("yooohoooo 2");
-                JSONObject errmsg = null;
-                return errmsg;
+                System.out.println("-- ");
+                // JSONObject errmsg = null;
+                return responseHandler.scanResponse(responseString, httpCode);
+
+                // return errmsg;
             }
         } catch (IOException | JSONException ex) {
-            System.out.println("yoohooo 3");
+            System.out.println("IN CATCH ");
             // return StatsResponse.error("error", ex.getMessage());
-            JSONObject errmsg = null;
-            return errmsg;
+            String errDat = ex.getMessage().toString();
+            return responseHandler.responseError(errDat);
+            // JSONObject errmsg = ;
+            // return ;
         }
+        // finally{
+        //     if(responseBody == null){
+        //         responseBody = new JSONObject();
+        //         responseBody.put("errors", "unknownerror");
+
+        //     }
+        // }
         
     }
 }

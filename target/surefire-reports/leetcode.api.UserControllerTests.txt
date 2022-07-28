@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: leetcode.api.UserControllerTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.425 s <<< FAILURE! - in leetcode.api.UserControllerTests
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.438 s <<< FAILURE! - in leetcode.api.UserControllerTests
 validUsername  Time elapsed: 0.052 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at leetcode.api.UserControllerTests.validUsername(UserControllerTests.java:37)
 
-nonValidUsername  Time elapsed: 0.009 s  <<< FAILURE!
+nonValidUsername  Time elapsed: 0.008 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at leetcode.api.UserControllerTests.nonValidUsername(UserControllerTests.java:56)
 
