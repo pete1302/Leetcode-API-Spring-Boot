@@ -14,11 +14,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+<<<<<<< Updated upstream
 
 import leetcode.api.controller.UserController;
 import leetcode.api.model.StatsResponse;
 import leetcode.api.service.StatsService;
 
+=======
+
+import leetcode.api.controller.UserController;
+import leetcode.api.model.StatsResponse;
+import leetcode.api.service.StatsService;
+>>>>>>> Stashed changes
 
 @WebMvcTest(UserController.class)
 public class UserControllerTests {

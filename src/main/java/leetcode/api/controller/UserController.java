@@ -10,11 +10,10 @@ import leetcode.api.service.jsonService;
 import leetcode.api.service.jsonWriter;
 import leetcode.api.service.serviceInfo;
 
-// impotr 
-
 @RestController
 @CrossOrigin(origins = "*")
 public class UserController {
+<<<<<<< Updated upstream
     // @Autowired
     // private StatsService statsService;
     @GetMapping(value = { "/home" , "/" })
@@ -62,6 +61,15 @@ public class UserController {
             System.out.println(username +' '+ qid ) ;
             // String datastr =  username + String.valueOf(qid);
     
+=======
+
+    @GetMapping(value ={"/{username}/{qid}", "/"})
+
+    public String getStats(@PathVariable Optional<String> username , @PathVariable int qid) {
+        if (username.isPresent()) {
+            System.out.println(username.get() +' '+ qid);
+
+>>>>>>> Stashed changes
             JSONObject data = new JSONObject();
             data.put("username", username);
             data.put("qid", qid);
@@ -71,6 +79,14 @@ public class UserController {
             jsonWriter.writer(qdata);
             return qdata.toString();
             
+<<<<<<< Updated upstream
+=======
+        } else {
+            System.out.println("ERROR1");
+            JSONObject errmsg = new JSONObject();
+            errmsg.put("error", JSONObject.NULL);
+            return errmsg.toString();
+>>>>>>> Stashed changes
         }
          else {
 
