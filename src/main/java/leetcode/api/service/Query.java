@@ -42,6 +42,8 @@ public class Query {
                     "{\"query\":\" query getUserProfile($username: String!) {  matchedUser(username: $username) {  profile { realName   }     }   } \",\"variables\":{\"username\":\"%s\"}}",username);
             break;
 
+            
+
             default:
                 break;
         }
