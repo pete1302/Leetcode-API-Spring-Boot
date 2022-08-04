@@ -40,7 +40,13 @@ public class Query {
             case 6:
             query = String.format(
                     "{\"query\":\" query getUserProfile($username: String!) {  matchedUser(username: $username) {  profile { realName   }     }   } \",\"variables\":{\"username\":\"%s\"}}",username);
-            break;
+            break;  
+            
+            case 7:
+            query = String.format(
+                    "{\"query\":\" query recentAcSubmissions($username: String!, $limit: Int!) {recentAcSubmissionList(username: $username limit:$limit) {id title titleSlug timestamp } }\",\"variables\":{\"username\":\"%s\",\"limit\":1}}",username);
+            break;  
+            
 
             
 
