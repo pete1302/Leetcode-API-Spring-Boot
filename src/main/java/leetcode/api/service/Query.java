@@ -32,20 +32,20 @@ public class Query {
                 break;
 
             case 5:
-            query = String.format(
+                query = String.format(
                     "{\"query\":\" query getUserProfile($username: String!) {  matchedUser(username: $username) {  profile { realName    ranking    } submitStats {acSubmissionNum {count  }  }    }   } \",\"variables\":{\"username\":\"%s\"}}",username);
-            break;
+                break;
 
             
             case 6:
-            query = String.format(
+                query = String.format(
                     "{\"query\":\" query getUserProfile($username: String!) {  matchedUser(username: $username) {  profile { realName   }     }   } \",\"variables\":{\"username\":\"%s\"}}",username);
-            break;  
+                break;  
             
             case 7:
-            query = String.format(
+                query = String.format(
                     "{\"query\":\" query recentAcSubmissions($username: String!, $limit: Int!) {recentAcSubmissionList(username: $username limit:$limit) {id title titleSlug timestamp } }\",\"variables\":{\"username\":\"%s\",\"limit\":1}}",username);
-            break;  
+                break;  
             
 
             
