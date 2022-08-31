@@ -46,9 +46,6 @@ public class Query {
                 query = String.format(
                     "{\"query\":\" query recentAcSubmissions($username: String!, $limit: Int!) {recentAcSubmissionList(username: $username limit:$limit) {id title titleSlug timestamp } }\",\"variables\":{\"username\":\"%s\",\"limit\":1}}",username);
                 break;  
-            
-
-            
 
             default:
                 break;
